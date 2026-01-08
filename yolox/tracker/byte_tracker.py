@@ -7,6 +7,8 @@ import torch
 import torch.nn.functional as F
 
 from .kalman_filter import KalmanFilter
+import sys, os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 from yolox.tracker import matching
 from .basetrack import BaseTrack, TrackState
 
@@ -15,7 +17,7 @@ class STrack(BaseTrack):
     def __init__(self, tlwh, score):
 
         # wait activate
-        self._tlwh = np.asarray(tlwh, dtype=np.float)
+        self._tlwh = np.asarray(tlwh, dtype=np.float64)
         self.kalman_filter = None
         self.mean, self.covariance = None, None
         self.is_activated = False
